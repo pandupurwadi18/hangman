@@ -10,6 +10,8 @@ chosen_word = random.choice(word_list)
 
 print(f'Pssst, the solution is {chosen_word}.')
 
+lives = 6
+
 display = []
 word_length = len(chosen_word)
 for _ in range(word_length):
@@ -24,6 +26,12 @@ while not end_of_the_game:
         letter = chosen_word[position]
         if letter == guess:
             display[position] = letter
+    
+    if guess not in chosen_word:
+        lives -= 0
+        if lives == 0:
+            end_of_the_game = True
+            print("You lose.")
 
     print(display)
 
