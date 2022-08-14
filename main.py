@@ -4,81 +4,32 @@
 
 #import random package
 import random
-
-#this is for graphic interface shows player lives
-stages = ['''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
+#import word
+from replit import clear
+from hangman_word import word_list
+from hangman_art import stages, logo
 
 end_of_the_game = False
 
-word_list = ["cook","swim","sleep","work","eat","drink"]
 chosen_word = random.choice(word_list)
 word_length = len(chosen_word)
 
 lives = 6
 
-print(f'Pssst, the solution is {chosen_word}.')
+print(logo)
 
 display = []
 for _ in range(word_length):
     display += "_"
+    
 
 while not end_of_the_game:
     guess = input("Guess a letter: ").lower()
+
+    clear()
+
+    if guess in display:
+      print(f"You've already guessed {guess}")
 
     for position in range(word_length):
         letter = chosen_word[position]
@@ -86,6 +37,7 @@ while not end_of_the_game:
             display[position] = letter
     
     if guess not in chosen_word:
+        print(f"You guessed {guess}, that's not in the word. You lose a life")
         lives -= 1
         if lives == 0:
             end_of_the_game = True
